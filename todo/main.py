@@ -42,6 +42,6 @@ def update_todo(todo_id: int, todo: schemas.TodoUpdate, db: Session = Depends(ge
     return crud.update_todo(db, todo_id, todo)
 
 
-@app.delete("/todos/{todo_id}")
+@app.delete("/todos/{todo_id}", status_code=204)
 def delete_todo(todo_id: int, db: Session = Depends(get_db)):
     crud.delete_todo(db, todo_id=todo_id)

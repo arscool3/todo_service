@@ -1,3 +1,4 @@
+from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
 from todo import schemas, models
@@ -24,6 +25,9 @@ def get_todos(db: Session, skip: int = 0, limit: int = 100):
 def update_todo(db: Session, todo_id: int, todo: schemas.TodoUpdate):
     db_todo = get_todo(db, todo_id)
 
+    if db_todo is None:
+        raise HTTPException(status_code=404, detail="Todo item not found")
+
     db_todo.title = todo.title
     db_todo.description = todo.description
 
@@ -35,5 +39,10 @@ def update_todo(db: Session, todo_id: int, todo: schemas.TodoUpdate):
 
 def delete_todo(db: Session, todo_id: int):
     db_todo = get_todo(db, todo_id)
+
+    if db_todo is None:
+        raise HTTPException(status_code=404, detail="Todo item not found")
+
     db.delete(db_todo)
     db.commit()
+
