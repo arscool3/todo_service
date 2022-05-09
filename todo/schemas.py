@@ -12,6 +12,10 @@ class TodoCreate(TodoBase):
     pass
 
 
+class TodoUpdate(TodoBase):
+    pass
+
+
 class Todo(TodoBase):
     id: int
 
