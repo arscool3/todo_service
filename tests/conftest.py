@@ -1,6 +1,6 @@
 import pytest
 
-from todo.database import Base, engine
+from tests.test_main import engine, Base
 
 
 @pytest.fixture

@@ -13,6 +13,18 @@ services:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_NAME}
 
+  test_db:
+    container_name: test_postgresql_db
+    image: postgres
+    restart: always
+    ports:
+      - 5439:5433
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${TEST_DB_NAME}
+
+
   app:
     container_name: app
     build: .

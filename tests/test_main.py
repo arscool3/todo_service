@@ -8,14 +8,12 @@ from sqlalchemy.orm import sessionmaker
 from todo.database import Base
 from todo.main import app, get_db
 
-
 load_dotenv()
-SQLALCHEMY_DATABASE_URL = os.getenv('DATABASE_URL')
+SQLALCHEMY_DATABASE_URL = os.getenv('TEST_DATABASE_URL')
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
 
 Base.metadata.create_all(bind=engine)
 
@@ -65,7 +63,6 @@ def test_get_not_found_todo(test_db):
 
 
 def test_update_todo(test_db):
-
     todo_dict = {'title': 'test', 'description': 'test_description'}
     response = client.post(
         "/todos/",
@@ -115,7 +112,6 @@ def test_read_todos(test_db):
     todo_dict = {'title': 'test', 'description': 'test_description'}
 
     for _ in range(3):
-
         response = client.post(
             "/todos/",
             json=todo_dict,
